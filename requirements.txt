@@ -1,0 +1,12 @@
+connexion
+Flask
+flask-marshmallow
+Flask-SQLAlchemy
+Jinja2
+marshmallow
+marshmallow-sqlalchemy
+requests
+SQLAlchemy
+swagger-ui-bundle
+urllib3
+Werkzeug
