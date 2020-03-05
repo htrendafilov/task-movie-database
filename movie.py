@@ -15,7 +15,7 @@ def read_all():
     :return:        json string of list of movies
     """
     # Get the list of movies from our DB
-    movies = Movie.query.order_by(Movie.movie_name).all()
+    movies = Movie.query.order_by(Movie.movie_id).all()
 
     # Serialize for the response
     movie_schema = MovieSchema(many=True)

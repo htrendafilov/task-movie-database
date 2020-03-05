@@ -42,6 +42,15 @@ paths:
                 profitability:
                   type: number
                   description: The profitability of this movie
+                rotten_tomatoes_score:
+                  type: integer
+                  description: The Rotten Tomatoes score in %
+                worldwide_gross:
+                  type: string
+                  description: Worldwide Gross
+                year:
+                  type: integer
+                  description: Movie year
                 timestamp:
                   type: string
                   description: Creation/Update timestamp of the movie record
@@ -73,6 +82,15 @@ paths:
                 profitability:
                   type: number
                   description: The profitability of this movie
+                rotten_tomatoes_score:
+                  type: integer
+                  description: The Rotten Tomatoes score in %
+                worldwide_gross:
+                  type: string
+                  description: Worldwide Gross
+                year:
+                  type: integer
+                  description: Movie year
       responses:
         201:
           description: Successfully created movie record
@@ -96,6 +114,15 @@ paths:
                 profitability:
                   type: number
                   description: The profitability of this movie
+                rotten_tomatoes_score:
+                  type: integer
+                  description: The Rotten Tomatoes score in %
+                worldwide_gross:
+                  type: string
+                  description: Worldwide Gross
+                year:
+                  type: integer
+                  description: Movie year
                 timestamp:
                   type: string
                   description: Creation/Update timestamp of the movie record
@@ -135,6 +162,15 @@ paths:
                 profitability:
                   type: number
                   description: The profitability of this movie
+                rotten_tomatoes_score:
+                  type: integer
+                  description: The Rotten Tomatoes score in %
+                worldwide_gross:
+                  type: string
+                  description: Worldwide Gross
+                year:
+                  type: integer
+                  description: Movie year
                 timestamp:
                   type: string
                   description: Creation/Update timestamp of the movie record

@@ -10,6 +10,9 @@ class Movie(db.Model):
     studio = db.Column(db.String(64))
     audience = db.Column(db.Integer)
     profitability = db.Column(db.Float)
+    rotten_tomatoes_score = db.Column(db.Integer)
+    worldwide_gross = db.Column(db.String(16))
+    year = db.Column(db.Integer)
 
     #Just for Internal information when updated
     timestamp = db.Column(
