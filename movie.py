@@ -21,23 +21,25 @@ def read_all():
     movie_schema = MovieSchema(many=True)
     return movie_schema.dump(movies)
 
-
-def read_one(movie_id):
+def read_one(**kwargs):
     """
     This function responds to a request for /api/movie/{movie_id}
-    with one matching movie
+    with one matching movie.
+    Optionally comma separated fields could be supplied for partial representation
 
-    :param movie_id:   Id of the movie to find
+    :param kwargs:   Arguments map, where 'movie_id' is required and 'fields' is optional
     :return:            The found movie record
     """
     # Get the movie by id
+    movie_id = kwargs['movie_id']
+    fields = kwargs.get('fields')
     movie = Movie.query.filter(Movie.movie_id == movie_id).one_or_none()
 
     # Did we find a movie?
     if movie is not None:
-
+        #TODO: Validate fields values if correct
+        movie_schema = MovieSchema(only=fields.split(',')) if fields else MovieSchema()
         # Serialize to JSON for the response
-        movie_schema = MovieSchema()
         return movie_schema.dump(movie)
 
     # Otherwise, nope, didn't find that movie

@@ -138,6 +138,11 @@ paths:
           description: Id of the movie to get
           type: integer
           required: True
+        - name: fields
+          in: query
+          description: Id of the movie to get
+          type: string
+          required: False
       responses:
         200:
           description: Successfully read movie from the movies DB
