@@ -12,8 +12,13 @@ It should:
  
 ## Design Overview
 
-I decided to do it Python, but will give it a shot also in Java later.
+I decided to do it Python (because lately I wrote mostly Python), but will give it a try with Java later.
 
-I decided on Flask as the WEB framework
-Used Swagger to describe the rest API and used connexion for this purpose
-SQLAlchemy is used for ORM and Marshmallow for object serialization/deserialization to JSON
+The main components are:
+
+![](https://raw.githubusercontent.com/htrendafilov/task-movie-database/master/documents/uIMDB_Design.png)
+
+I decided on:
+ - **Flask** as the WEB framework
+ - Using **Swagger** to describe the rest API and **Connexion** to make it Pythonic
+ - **SQLAlchemy** is used for ORM and **Marshmallow** for serialization/deserialization to JSON
