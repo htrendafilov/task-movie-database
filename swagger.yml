@@ -15,6 +15,8 @@ paths:
   /movie:
     get:
       operationId: movie.read_all
+      tags:
+        - Read Operations
       summary: Read the entire set of movies
       description: Read the entire set of movies
       responses:
@@ -57,6 +59,8 @@ paths:
 
     post:
       operationId: movie.create
+      tags:
+        - Write Operations
       summary: Create a new movie record
       description: Create a new movie record
       parameters:
@@ -130,6 +134,8 @@ paths:
   /movie/{movie_id}:
     get:
       operationId: movie.read_one
+      tags:
+        - Read Operations
       summary: Read one movie record
       description: Read one movie record
       parameters:
@@ -179,3 +185,97 @@ paths:
                 timestamp:
                   type: string
                   description: Creation/Update timestamp of the movie record
+    put:
+      operationId: movie.update
+      tags:
+        - Write Operations
+      summary: Update one movie record
+      description: Update one movie record
+      parameters:
+        - name: movie_id
+          in: path
+          description: Id of the movie to get
+          type: integer
+          required: True
+        - name: movie
+          in: body
+          description: Movie record to create
+          required: True
+          schema:
+            type: object
+            properties:
+                movie_name:
+                  type: string
+                  description: The movie name
+                genre:
+                  type: string
+                  description: The movie genre
+                studio:
+                  type: string
+                  description: The Studio, that created the movie
+                audience:
+                  type: integer
+                  description: Audience
+                profitability:
+                  type: number
+                  description: The profitability of this movie
+                rotten_tomatoes_score:
+                  type: integer
+                  description: The Rotten Tomatoes score in %
+                worldwide_gross:
+                  type: string
+                  description: Worldwide Gross
+                year:
+                  type: integer
+                  description: Movie year
+      responses:
+        200:
+          description: Return the updated movie
+          schema:
+            type: object
+            properties:
+                movie_id:
+                  type: string
+                  description: Id of the movie
+                movie_name:
+                  type: string
+                  description: The movie name
+                genre:
+                  type: string
+                  description: The movie genre
+                studio:
+                  type: string
+                  description: The Studio, that created the movie
+                audience:
+                  type: integer
+                  description: Audience
+                profitability:
+                  type: number
+                  description: The profitability of this movie
+                rotten_tomatoes_score:
+                  type: integer
+                  description: The Rotten Tomatoes score in %
+                worldwide_gross:
+                  type: string
+                  description: Worldwide Gross
+                year:
+                  type: integer
+                  description: Movie year
+                timestamp:
+                  type: string
+                  description: Creation/Update timestamp of the movie record
+    delete:
+      operationId: movie.delete
+      tags:
+        - Write Operations
+      summary: Delete movie record
+      description: Delete movie record
+      parameters:
+        - name: movie_id
+          in: path
+          description: Id of the movie to get
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Movie deleted from the movies DB

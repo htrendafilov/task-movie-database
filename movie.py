@@ -25,7 +25,8 @@ def read_one(**kwargs):
     """
     This function responds to a request for /api/movie/{movie_id}
     with one matching movie.
-    Optionally comma separated fields could be supplied for partial representation
+    Optionally comma separated fields could be supplied for partial representation:
+    Example: /api/movie/{movie_id}?fields=movie_name,year
 
     :param kwargs:   Arguments map, where 'movie_id' is required and 'fields' is optional
     :return:            The found movie record
@@ -68,3 +69,60 @@ def create(movie):
     data = schema.dump(new_movie)
 
     return data, 201
+
+def update(movie_id, movie):
+    """
+    This function updates an existing movie in the database
+
+    :param movie_id:   Id of the movie to be updated
+    :param movie:      The new Movie object
+    :return:            updated movie structure
+    """
+    # Get the movie requested from the db into session
+    update_movie = Movie.query.filter(
+        Movie.movie_id == movie_id
+    ).one_or_none()
+
+    # Are we trying to find a movie that does not exist?
+    if update_movie is None:
+        abort(
+            404,
+            "Movie not found for Id: {movie_id}".format(movie_id=movie_id),
+        )
+
+    # Otherwise go ahead and update!
+    else:
+
+        # turn the passed in movie into a db object
+        schema = MovieSchema()
+        update = schema.load(movie, session=db.session)
+
+        # Set the id to the movie we want to update
+        update.movie_id = update_movie.movie_id
+
+        # merge the new object into the old and commit it to the db
+        db.session.merge(update)
+        db.session.commit()
+
+        # return updated movie in the response
+        data = schema.dump(update_movie)
+
+        return data, 200
+
+
+def delete(movie_id):
+    """
+    This function deletes a movie from the Database
+	The method will always succeed, because we want idempotent delete
+
+    :param movie_id:   Id of the movie to delete
+    :return:            200
+    """
+    # Get the movie requested
+    movie = Movie.query.filter(Movie.movie_id == movie_id).one_or_none()
+
+    if movie is not None:
+        db.session.delete(movie)
+        db.session.commit()
+
+    return "", 200
