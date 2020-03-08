@@ -30,4 +30,14 @@ I decided on:
  - config.py - App configurations. In this case Database used is configured here
  - movie.py - The REST API is implemented here
  - requirements.txt - The python libraries used. Install with: `pip install -r requirements.txt`
- - initilize_database.py - One-off script to be run to initialize the DB for the first time.
+ - initilize_database.py - One-off script to be run to initialize the DB for the first time
+ - test_movie.py - Test cases, using **pytest**
+ 
+ ## Usage
+ 
+ Before first run, install the requirements: `pip install -r requirements.txt` and initialize the database: `python initialize_database.py`  
+ Then start the app with `main.py` file.  
+ The test are run with: `pytest`  
+ 
+ The API is under: `http://localhost:5000/api/`  
+ Swagger UI could be accessed on: `http://localhost:5000/api/ui`
