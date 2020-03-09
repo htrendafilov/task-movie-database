@@ -38,8 +38,10 @@ def read_one(**kwargs):
 
     # Did we find a movie?
     if movie is not None:
-        #TODO: Validate fields values if correct
-        movie_schema = MovieSchema(only=fields.split(',')) if fields else MovieSchema()
+        #Intersect supplied fields with Schema defined ones => Receive only valid fields
+        if fields:
+            fields = set(fields.split(',')) & set(MovieSchema().fields.keys())
+        movie_schema = MovieSchema(only=fields) if fields else MovieSchema()
         # Serialize to JSON for the response
         return movie_schema.dump(movie)
 

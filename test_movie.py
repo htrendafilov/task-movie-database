@@ -39,6 +39,43 @@ def test_read_all_empty(client):
 
 
 def test_read_all_with_data(client):
+    _initialize_with_test_record()
+
+    response = client.get('/api/movie')
+    movies_array = json.loads(response.data.decode('utf-8'))
+    assert response.status_code == 200
+    assert response.content_type == 'application/json'
+    assert 1 == len(movies_array)
+    assert "Testing Movie" == movies_array[0]['movie_name']
+    assert 2011 == movies_array[0]['year']
+
+def test_read_one(client):
+    _initialize_with_test_record()
+
+    response = client.get('/api/movie/1')
+    movie = json.loads(response.data.decode('utf-8'))
+    assert response.status_code == 200
+    assert response.content_type == 'application/json'
+    assert "Testing Movie" == movie['movie_name']
+    assert 2011 == movie['year']
+    response = client.get('/api/movie/0')
+    assert response.status_code == 404
+    response = client.get('/api/movie/2')
+    assert response.status_code == 404
+
+def test_read_one_with_fields_filter(client):
+    _initialize_with_test_record()
+
+    response = client.get('/api/movie/1?fields=movie_name,year')
+    movie = json.loads(response.data.decode('utf-8'))
+    assert response.status_code == 200
+    assert response.content_type == 'application/json'
+    assert "Testing Movie" == movie['movie_name']
+    assert 2011 == movie['year']
+    assert 2 == len(movie.keys())
+
+
+def _initialize_with_test_record():
     m = Movie(movie_name="Testing Movie",
               genre="NewGenre",
               studio="Test Studio",
@@ -48,13 +85,7 @@ def test_read_all_with_data(client):
               worldwide_gross="$23.34",
               year=2011
               )
+
+    db.session.query(Movie).delete()
     db.session.add(m)
     db.session.commit()
-
-    response = client.get('/api/movie')
-    movies_array = json.loads(response.data.decode('utf-8'))
-    assert response.status_code == 200
-    assert response.content_type == 'application/json'
-    assert 1 == len(movies_array)
-    assert "Testing Movie" == movies_array[0]['movie_name']
-    assert 2011 == movies_array[0]['year']
