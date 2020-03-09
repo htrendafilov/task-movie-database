@@ -41,3 +41,67 @@ I decided on:
  
  The API is under: `http://localhost:5000/api/`  
  Swagger UI could be accessed on: `http://localhost:5000/api/ui`
+
+ ## Example Queries
+ 
+ Get all movies:
+```
+ $ curl -s -X GET --header 'Accept: application/json' 'http://localhost:5000/api/movie'
+[
+  {
+    "audience": 70,
+    "genre": "Romance",
+    "movie_id": 1,
+    "movie_name": "Zack and Miri Make a Porno",
+    "profitability": 1.747541667,
+    "rotten_tomatoes_score": 64,
+    "studio": "The Weinstein Company",
+    "timestamp": "2020-03-09T19:02:14.770674",
+    "worldwide_gross": "$41.94 ",
+    "year": 2008
+  },
+  {
+    "audience": 52,
+    "genre": "Comedy",
+    "movie_id": 2,
+    "movie_name": "Youth in Revolt",
+    "profitability": 1.09,
+    "rotten_tomatoes_score": 68,
+    "studio": "The Weinstein Company",
+    "timestamp": "2020-03-09T19:02:14.770674",
+    "worldwide_gross": "$19.62 ",
+    "year": 2010
+  },
+  {
+    "audience": 35,
+    "genre": "Comedy",
+    "movie_id": 3,
+    "movie_name": "You Will Meet a Tall Dark Stranger",
+    ...
+```
+
+Get one movie by id:
+```
+$ curl -s -X GET --header 'Accept: application/json' 'http://localhost:5000/api/movie/4'
+{
+  "audience": 44,
+  "genre": "Comedy",
+  "movie_id": 4,
+  "movie_name": "When in Rome",
+  "profitability": 0.0,
+  "rotten_tomatoes_score": 15,
+  "studio": "Disney",
+  "timestamp": "2020-03-09T19:02:14.770674",
+  "worldwide_gross": "$43.04 ",
+  "year": 2010
+}
+```
+
+One movie partial representation:
+```
+$ curl -s -X GET --header 'Accept: application/json' 'http://localhost:5000/api/movie/6?fields=movie_name,year'
+{
+  "movie_name": "Water For Elephants",
+  "year": 2011
+}
+```
